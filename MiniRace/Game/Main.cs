@@ -3,6 +3,7 @@ using MiniRace.Resources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -16,9 +17,6 @@ namespace MiniRace.Game {
         public Scene.Scene gameScene { get; set; }
         public Scene.Scene menuScene { get; set; }
         public Screen screen { get; set; }
-
-        public int Width { get; set; }
-        public int Height { get; set; }
 
         public int ticks { get; set; } = 0;
 
@@ -35,8 +33,8 @@ namespace MiniRace.Game {
         private void init() {
             Bundle.init();
 
-            gameScene = new GameScene(this);
-            menuScene = new MenuScene(this);
+            gameScene = new Scene.Game(this);
+            menuScene = new Scene.Menu(this);
             Scene.Scene.currentScene = menuScene;
 
             double timePerTick = 1000000000 / 60;
@@ -56,11 +54,7 @@ namespace MiniRace.Game {
                 delta += (now - last) / timePerTick;
                 timer = now - last;
                 last = now;
-
                 if (delta >= 1) {
-                    if(Scene.Scene.currentScene != null)
-                        Scene.Scene.currentScene.update();
-
                     screen.Invalidate();
                     ticks++;
                     delta--;
@@ -72,6 +66,18 @@ namespace MiniRace.Game {
                 }
 
             }
+        }
+
+        public void Screen_FormClosed(object sender, FormClosedEventArgs e) {
+            t.Abort();
+        }
+
+        public void Screen_Paint(object sender, PaintEventArgs e) {
+            Graphics g = e.Graphics;
+            g.Clear(Color.FromArgb(80, 107, 81));
+
+            if (Scene.Scene.currentScene != null)
+                Scene.Scene.currentScene.paint(g);
         }
     }
 }
