@@ -17,9 +17,6 @@ namespace MiniRace.Game {
         public Scene.Scene menuScene { get; set; }
         public Screen screen { get; set; }
 
-        public int Width { get; set; }
-        public int Height { get; set; }
-
         public int ticks { get; set; } = 0;
 
         public Main() {
@@ -39,7 +36,7 @@ namespace MiniRace.Game {
             menuScene = new MenuScene(this);
             Scene.Scene.currentScene = menuScene;
 
-            double timePerTick = 1000000000 / 60;
+            double timePerTick = 1000000000 / 600;
             double delta = 0;
 
             long nano = (10000L * Stopwatch.GetTimestamp()) / TimeSpan.TicksPerMillisecond * 100L;
@@ -58,7 +55,7 @@ namespace MiniRace.Game {
                 last = now;
 
                 if (delta >= 1) {
-                    if(Scene.Scene.currentScene != null)
+                    if(Scene.Scene.currentScene != null && screen != null)
                         Scene.Scene.currentScene.update();
 
                     screen.Invalidate();

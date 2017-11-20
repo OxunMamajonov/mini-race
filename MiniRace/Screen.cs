@@ -24,9 +24,6 @@ namespace MiniRace {
 
             InitializeComponent();
             DoubleBuffered = true;
-
-            main.Width = Width;
-            main.Height = Height;
         }
 
         private void Screen_FormClosed(object sender, FormClosedEventArgs e) {
@@ -37,13 +34,12 @@ namespace MiniRace {
             Graphics g = e.Graphics;
             g.Clear(Color.Black);
             
-            if(Scene.currentScene != null)
+            if(Scene.currentScene != null && main.screen != null)
                 Scene.currentScene.render(g);
         }
 
         private void Screen_SizeChanged(object sender, EventArgs e) {
-            main.Width = Width;
-            main.Height = Height;
+            
         }
     }
 }

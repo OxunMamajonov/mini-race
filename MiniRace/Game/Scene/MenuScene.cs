@@ -17,8 +17,8 @@ namespace MiniRace.Game.Scene {
 
         public override void update() {
 
-            x = main.Width / 2 - Bundle.logo.Width / 2;
-            y = main.Height / 2 - Bundle.logo.Height / 2 + Math.Sin((Math.PI * main.ticks * 5 / 180.0)) * 15;
+            x = main.screen.Width / 2 - Bundle.logo.Width / 2;
+            y = main.screen.Height / 2 - Bundle.logo.Height / 2 + Math.Sin((Math.PI * main.ticks * 5 / 180.0)) * 15;
             y -= 100;
 
         }
@@ -27,8 +27,8 @@ namespace MiniRace.Game.Scene {
             g.DrawImage(Bundle.logo, (float)x, (float)y);
             g.DrawString("Press any key to start", Bundle.menuFont, 
                                                    Brushes.White, 
-                                                   (float)main.Width / 2 - 200, 
-                                                   (float)main.Height / 2 + 50);
+                                                   main.screen.Width / 2 - 200, 
+                                                   main.screen.Height / 2 + 50);
         }
 
     }
