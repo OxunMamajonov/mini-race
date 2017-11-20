@@ -14,7 +14,7 @@ namespace MiniRace.Game.Scene {
         private int tileSize = 25;
         private Random rnd = new Random();
         private int time = 0;
-        private int leftWall, rightWall;
+        private int wall;
 
         public Game(Main main) : base(main) {
             map = new ushort[size, size];
@@ -26,12 +26,15 @@ namespace MiniRace.Game.Scene {
             for (int i = 0; i < 100; i++)
                 map[rnd.Next(0, size), rnd.Next(0, size)] = (ushort)rnd.Next(2);
 
-            leftWall = 0;
-            rightWall = size - 1;
+            wall = 0;
         }
 
         public override void paint(Graphics g) {
             //List<Point> pacmanCords = new List<Point>();
+
+            for (int i = 0; i < main.screen.Width/tileSize; i++)
+                for (int j = 0; j < main.screen.Height/tileSize; j++)
+                    g.DrawImage(Bundle.wall, i*tileSize, j*tileSize, tileSize, tileSize);
 
             int offsetCenter = -main.screen.Height / 2 + (main.screen.Width - size) / 2 + tileSize;
 
@@ -54,13 +57,8 @@ namespace MiniRace.Game.Scene {
                         g.DrawImage(Bundle.car, offsetCenter + i * tileSize, j * tileSize, tileSize, tileSize);
                 }
             }
-
-            if(time < 30) {
-                time++;
+            
                 roll();
-            } else {
-                time = 0;
-            }
                 
         }
 
@@ -72,21 +70,18 @@ namespace MiniRace.Game.Scene {
                 }
             }
             //If not near the left corner
+            wall += rnd.Next(-2, 3);
+            wall += rnd.Next(-3, 2);
 
-            int a = rnd.Next(0, 10);
+            for (int j = 0; j < size; j++)
+                if(!(j>wall && j <size-wall))
+                    map[j, 0] = 0;
+            
 
-            if (a == 0)
-                leftWall += 1;
-            else if (a > 7)
-                leftWall -= 1;
-
-
-            rightWall += rnd.Next(-1, 1);
-
-            for (int j = 0; j < leftWall; j++)
-                map[j, 0] = 0;
-            for (int j = size-1; j > rnd.Next(size - 12, size - 2); j--)
-                map[j, 0] = 0;
+            if(wall < 5)
+                wall += rnd.Next(3, 5);
+            if (wall > size/2-5)
+                wall += rnd.Next(-5, -3);
         }
     }
 }

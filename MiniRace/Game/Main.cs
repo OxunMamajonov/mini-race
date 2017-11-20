@@ -37,7 +37,7 @@ namespace MiniRace.Game {
             menuScene = new Scene.Menu(this);
             Scene.Scene.currentScene = menuScene;
 
-            double timePerTick = 1000000000 / 600;
+            double timePerTick = 1000000000 / 60;
             double delta = 0;
 
             long nano = (10000L * Stopwatch.GetTimestamp()) / TimeSpan.TicksPerMillisecond * 100L;
@@ -74,7 +74,7 @@ namespace MiniRace.Game {
 
         public void Screen_Paint(object sender, PaintEventArgs e) {
             Graphics g = e.Graphics;
-            g.Clear(Color.FromArgb(80, 107, 81));
+            g.Clear(Color.FromArgb(55, 55, 55));
 
             if (Scene.Scene.currentScene != null)
                 Scene.Scene.currentScene.paint(g);
