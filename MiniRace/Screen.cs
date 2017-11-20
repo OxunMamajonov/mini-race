@@ -19,6 +19,10 @@ namespace MiniRace {
 
         Main main;
         public bool enter { get; set; }
+        public bool up { get; set; }
+        public bool down { get; set; }
+        public bool left { get; set; }
+        public bool right { get; set; }
 
         public Screen(Main main) {
 
@@ -31,17 +35,44 @@ namespace MiniRace {
         }
 
         private void Screen_KeyUp(object sender, KeyEventArgs e) {
-            switch(e.KeyCode) {
+            switch (e.KeyCode)
+            {
                 case Keys.Enter:
-                    enter = true;
+                    enter = false;
+                    break;
+                case Keys.Left:
+                    left = false;
+                    break;
+                case Keys.Right:
+                    right = false;
+                    break;
+                case Keys.Up:
+                    up = false;
+                    break;
+                case Keys.Down:
+                    down = false;
                     break;
             }
+            
         }
 
         private void Screen_KeyDown(object sender, KeyEventArgs e) {
-            switch (e.KeyCode) {
+            switch (e.KeyCode)
+            {
                 case Keys.Enter:
-                    enter = false;
+                    enter = true;
+                    break;
+                case Keys.Left:
+                    left = true;
+                    break;
+                case Keys.Right:
+                    right = true;
+                    break;
+                case Keys.Up:
+                    up = true;
+                    break;
+                case Keys.Down:
+                    down = true;
                     break;
             }
 

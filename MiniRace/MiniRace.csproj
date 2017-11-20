@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Game\Main.cs" />
     <Compile Include="Game\Scene\Game.cs" />
+    <Compile Include="Game\Scene\Records.cs" />
     <Compile Include="Game\Scene\Scene.cs" />
     <Compile Include="Game\Scene\Menu.cs" />
     <Compile Include="Game\Utils\Perlin.cs" />

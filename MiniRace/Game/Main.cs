@@ -16,6 +16,7 @@ namespace MiniRace.Game {
 
         public Scene.Scene gameScene { get; set; }
         public Scene.Scene menuScene { get; set; }
+        public Scene.Scene recordsScene { get; set; }
         public Screen screen { get; set; }
 
         public int ticks { get; set; } = 0;
@@ -35,6 +36,7 @@ namespace MiniRace.Game {
 
             gameScene = new Scene.Game(this);
             menuScene = new Scene.Menu(this);
+            recordsScene = new Scene.Records(this);
             Scene.Scene.currentScene = menuScene;
 
             double timePerTick = 1000000000 / 60;
