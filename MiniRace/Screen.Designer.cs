@@ -29,13 +29,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(107)))), ((int)(((byte)(81)))));
             this.ClientSize = new System.Drawing.Size(849, 514);
             this.Name = "Screen";
             this.Text = "Screen";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Screen_FormClosed);
-            this.SizeChanged += new System.EventHandler(this.Screen_SizeChanged);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Screen_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Screen_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Screen_KeyUp);
             this.ResumeLayout(false);
 
         }

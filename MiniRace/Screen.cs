@@ -18,32 +18,33 @@ namespace MiniRace {
     public partial class Screen : Form {
 
         Main main;
+        public bool enter { get; set; }
 
         public Screen(Main main) {
+
             this.main = main;
 
             InitializeComponent();
             DoubleBuffered = true;
 
-            main.Width = Width;
-            main.Height = Height;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(main.Screen_FormClosed);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(main.Screen_Paint);
         }
 
-        private void Screen_FormClosed(object sender, FormClosedEventArgs e) {
-            main.t.Abort();
+        private void Screen_KeyUp(object sender, KeyEventArgs e) {
+            switch(e.KeyCode) {
+                case Keys.Enter:
+                    enter = true;
+                    break;
+            }
         }
 
-        private void Screen_Paint(object sender, PaintEventArgs e) {
-            Graphics g = e.Graphics;
-            g.Clear(Color.Black);
-            
-            if(Scene.currentScene != null)
-                Scene.currentScene.render(g);
-        }
-
-        private void Screen_SizeChanged(object sender, EventArgs e) {
-            main.Width = Width;
-            main.Height = Height;
+        private void Screen_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.KeyCode) {
+                case Keys.Enter:
+                    enter = false;
+                    break;
+            }
         }
     }
 }
