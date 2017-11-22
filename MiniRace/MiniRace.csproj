@@ -33,8 +33,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +57,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\DB\Player.cs">
+      <DependentUpon>Scores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game\DB\Score.cs">
+      <DependentUpon>Scores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game\DB\Scores.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Scores.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game\DB\Scores.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Scores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game\DB\Scores.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Scores.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Game\Main.cs" />
     <Compile Include="Game\Scene\Game.cs" />
     <Compile Include="Game\Scene\Records.cs" />
@@ -73,6 +105,14 @@
     <EmbeddedResource Include="Screen.resx">
       <DependentUpon>Screen.cs</DependentUpon>
     </EmbeddedResource>
+    <EntityDeploy Include="Game\DB\Scores.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Scores.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Game\DB\Scores.edmx.diagram">
+      <DependentUpon>Scores.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -88,11 +128,32 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Game\DB\Scores.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Scores.Context.cs</LastGenOutput>
+      <DependentUpon>Scores.edmx</DependentUpon>
+    </Content>
+    <Content Include="Game\DB\Scores.edmx.sql" />
+    <Content Include="Game\DB\Scores.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Scores.cs</LastGenOutput>
+      <DependentUpon>Scores.edmx</DependentUpon>
+    </Content>
     <Content Include="Resources\background.png" />
     <Content Include="Resources\car.png" />
     <Content Include="Resources\floor.png" />
     <Content Include="Resources\logo.png" />
+    <Content Include="Resources\oil.png" />
+    <Content Include="Resources\oil2.png" />
+    <Content Include="Resources\oil2_big.png" />
+    <Content Include="Resources\oil3.png" />
+    <Content Include="Resources\oil3_big.png" />
+    <Content Include="Resources\oilpath.png" />
+    <Content Include="Resources\oil_big.png" />
     <Content Include="Resources\wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
