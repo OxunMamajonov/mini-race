@@ -9,27 +9,37 @@ using MiniRace.Resources;
 namespace MiniRace.Game.Scene {
     public class Game : Scene {
 
-        private ushort[,] map, carr;
+        private ushort[,] map, oil, carr, oiledd;
         private int size = 40;
         private int tileSize = 25;
         private Random rnd = new Random();
-        private int time = 0;
+        public int score { get; set; } = 0;
+        public int time { get; set; } = 0;
+        private int timesToDirection = 0;
         private int wall;
         private int offset;
+        private bool oiled = false;
+
+        enum tiles {
+            wall,
+            floor,
+            oil,
+            oilpath
+        }
+
+        enum car {
+            air,
+            car
+        }
 
         private ushort oldCarLeft, oldCarRight, oldCarBack;
         private int x, y;
-        private ushort[] car =
-        {
-            0, 2, 0,
-            2, 2, 2,
-            0, 2, 0,
-            2, 2, 2
-        };
 
         public Game(Main main) : base(main) {
             map = new ushort[size, size];
             carr = new ushort[size, size];
+            oil = new ushort[size, size];
+            oiledd = new ushort[size, size];
 
             for (int i = 0; i < size; i++)
                 for(int j = 0; j < size; j++)
@@ -47,65 +57,111 @@ namespace MiniRace.Game.Scene {
 
         public override void paint(Graphics g) {
             //List<Point> pacmanCords = new List<Point>();
+            int offsetX = main.screen.Width / 2 - (size * tileSize) / 2;
+            int offsetY = main.screen.Height / 2 - (size * tileSize) / 2;
 
-            for (int i = 0; i < main.screen.Width/tileSize; i++)
-                for (int j = 0; j < main.screen.Height/tileSize; j++)
-                    g.DrawImage(Bundle.wall, i*tileSize, j*tileSize, tileSize, tileSize);
+            tileSize = main.screen.Height / size;
 
-            int offsetCenter = -main.screen.Height / 2 + (main.screen.Width - size) / 2 + tileSize;
+            for (int i = 0; i < main.screen.Width / tileSize; i++)
+                for (int j = 0; j < main.screen.Height / tileSize; j++)
+                    g.DrawImage(Bundle.wall, i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
 
             //int offsetCenter = (Width/side)*8
 
-            for (int j = 0; j < main.screen.Height / tileSize; j++) {
-                for (int i = 0; i < main.screen.Height / tileSize; i++) {
-                    double relX = i / (main.screen.Height / (double)tileSize);
-                    double relY = j / (main.screen.Height / (double)tileSize);
-                    int x = (int)(relX * size);
-                    int y = (int)(relY * size);
+            for (int j = 0; j < size; j++) {
+                for (int i = 0; i < size; i++) {
 
                     //Layer 1
-                    if (map[x, y] == 0)
-                        g.DrawImage(Bundle.wall, offsetCenter + i * tileSize, j * tileSize, tileSize, tileSize);
-                    else
-                        g.DrawImage(Bundle.floor, offsetCenter + i * tileSize, j * tileSize, tileSize, tileSize);
-                    ////Layer 2
-                    if (carr[x, y] == 1)
-                        g.DrawImage(Bundle.car, offsetCenter + i * tileSize, j * tileSize, tileSize, tileSize);
+                    if (map[i, j] == (int)tiles.wall)
+                        g.DrawImage(Bundle.wall, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+                    else if(map[i, j] == (int)tiles.floor)
+                        g.DrawImage(Bundle.floor, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+
+                    if (oil[i, j] == (int)tiles.oil)
+                        g.DrawImage(Bundle.oil[rnd.Next(0,6)], offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+
+                    if (oiled && oiledd[i, j] == (int)tiles.oilpath)
+                        g.DrawImage(Bundle.oilpath, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+
+                    //Layer 2
+                    if (carr[i, j] == (int)car.car)
+                        g.DrawImage(Bundle.car, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+
                 }
             }
-                roll();
-            
+
+            roll();
+
             carr[x, y] = 1;
 
-            if(main.screen.left)
-            {
-                carr[x, y] = 0;
+            if (main.screen.left) {
+                carr[x, y] = (int)car.air;
                 x--;
-                carr[x, y] = 1;
-            } else if(main.screen.right)
-            {
-                carr[x, y] = 0;
+                carr[x, y] = (int)car.car;
+            } else if (main.screen.right) {
+                carr[x, y] = (int)car.air;
                 x++;
-                carr[x, y] = 1;
+                carr[x, y] = (int)car.car;
             }
 
-            if (map[x, y] == 0)
+            if(oiled) {
+                    int direction = rnd.Next(0,100);
+                    if (direction < 20) {
+                    
+                        if (!main.screen.right) {
+                            carr[x, y] = (int)car.air;
+                            x--;
+                            carr[x, y] = (int)car.car;
+                        }
+                    
+                    } else if(direction > 20 && direction <= 80) {
+                        if (!main.screen.left) {
+                            carr[x, y] = (int)car.air;
+                            x++;
+                            carr[x, y] = (int)car.car;
+                        }
+                    
+                }
+                
+                if (time > 0) {
+                    time--;
+                } else {
+                    time = 0;
+                    oiled = false;
+
+                    for (int i = 0; i < size; i++)
+                        for (int j = 0; j < size; j++)
+                            oiledd[j, i] = 0;
+                }
+
+                oiledd[x, y] = (int)tiles.oilpath;
+
+                if (oil[x, y] == (int)tiles.oil)
+                    time += 2;
+            }
+
+            if (map[x, y] == (int)tiles.wall) {
+                Records recordScene = new Records(main);
+                recordScene.score = score;
+                main.recordsScene = recordScene;
                 currentScene = main.recordsScene;
+            }
+
+            
+            if(score < int.MaxValue)
+                score += 1 + score / 60;
+
+            if (!oiled && oil[x, y] == (int)tiles.oil) {
+                oiled = true;
+                time += 50;
+            }
+                
+
+            try {
+                g.DrawString($"Score = {score.ToString()}\nOiled = {time}", Bundle.menuFont, Brushes.White, 0, 0);
+            } catch (InvalidOperationException e) { }
 
 
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    for (int j = 0; j < 3; j++)
-            //    {
-            //        map[x + j, y + i] = clear[j * 4 + i];
-            //    }
-            //}
-
-            //for (int i = 0; i < 4; i++) {
-            //    for (int j = 0; j < 3; j++) {
-            //        map[x + j, y + i] = car[j*4+i];
-            //    }
-            //}
         }
 
         private void roll() {
@@ -113,6 +169,12 @@ namespace MiniRace.Game.Scene {
                 for (int j = 0; j < size; j++) {
                     map[j, i] = map[j, i - 1];
                     map[j, i - 1] = 1;
+
+                    oil[j, i] = oil[j, i - 1];
+                    oil[j, i - 1] = 1;
+
+                    oiledd[j, i] = oiledd[j, i - 1];
+                    oiledd[j, i - 1] = 1;
                 }
             }
             //If not near the left corner
@@ -120,10 +182,17 @@ namespace MiniRace.Game.Scene {
             wall += rnd.Next(-3, 2);
 
             for (int j = 0; j < size; j++)
-                if(!(j>wall+3 && j <size-wall-3))
-                    map[j, 0] = 0;
+                if(!(j>wall+3 && j <size-wall-3)) {
+                    map[j, 0] = (int)tiles.wall;
+
+                    if (rnd.Next(0, 100) < 3 && wall + 6 < size - wall - 6)
+                        oil[rnd.Next(wall + 6, size - wall - 6), 0] = (int)tiles.oil;
+
+                }
+
             
-            if(wall < 5)
+
+            if (wall < 5)
                 wall += rnd.Next(3, 5);
             if (wall > size/2-5)
                 wall += rnd.Next(-5, -3);

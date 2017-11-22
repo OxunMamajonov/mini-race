@@ -18,6 +18,7 @@ namespace MiniRace.Game {
         public Scene.Scene menuScene { get; set; }
         public Scene.Scene recordsScene { get; set; }
         public Screen screen { get; set; }
+        private int fpc = 60;
 
         public int ticks { get; set; } = 0;
 
@@ -39,7 +40,7 @@ namespace MiniRace.Game {
             recordsScene = new Scene.Records(this);
             Scene.Scene.currentScene = menuScene;
 
-            double timePerTick = 1000000000 / 60;
+            double timePerTick = 1000000000 / fpc;
             double delta = 0;
 
             long nano = (10000L * Stopwatch.GetTimestamp()) / TimeSpan.TicksPerMillisecond * 100L;
@@ -75,11 +76,13 @@ namespace MiniRace.Game {
         }
 
         public void Screen_Paint(object sender, PaintEventArgs e) {
-            Graphics g = e.Graphics;
-            g.Clear(Color.FromArgb(55, 55, 55));
+            
+                Graphics g = e.Graphics;
+                g.Clear(Color.FromArgb(55, 55, 55));
 
-            if (Scene.Scene.currentScene != null)
-                Scene.Scene.currentScene.paint(g);
+                if (Scene.Scene.currentScene != null)
+                    Scene.Scene.currentScene.paint(g);
+            }
         }
     }
-}
+
