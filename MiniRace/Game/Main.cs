@@ -23,16 +23,6 @@ namespace MiniRace.Game {
         public int ticks { get; set; } = 0;
 
         public Main() {
-            t = new Thread(init);
-            t.Start();
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            screen = new Screen(this);
-            Application.Run(screen);
-        }
-
-        private void init() {
             Bundle.init();
 
             gameScene = new Scene.Game(this);
@@ -40,39 +30,16 @@ namespace MiniRace.Game {
             recordsScene = new Scene.Records(this);
             Scene.Scene.currentScene = menuScene;
 
-            double timePerTick = 1000000000 / fpc;
-            double delta = 0;
-
-            long nano = (10000L * Stopwatch.GetTimestamp()) / TimeSpan.TicksPerMillisecond * 100L;
-
-            long now,
-                 timer = 0,
-                 last = nano;
-
-            while (true) {
-
-                nano = (10000L * Stopwatch.GetTimestamp()) / TimeSpan.TicksPerMillisecond * 100L;
-
-                now = nano;
-                delta += (now - last) / timePerTick;
-                timer = now - last;
-                last = now;
-                if (delta >= 1) {
-                    screen.Invalidate();
-                    ticks++;
-                    delta--;
-                }
-
-                if (timer >= 1000000000) {
-                    ticks = 0;
-                    timer = 0;
-                }
-
-            }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            screen = new Screen(this);
+            Application.Run(screen);
         }
 
-        public void Screen_FormClosed(object sender, FormClosedEventArgs e) {
-            t.Abort();
+        public void Screen_FormClosed(object sender, FormClosedEventArgs e) { }
+
+        public void timer_Tick(object sender, EventArgs e) {
+            screen.Invalidate();
         }
 
         public void Screen_Paint(object sender, PaintEventArgs e) {

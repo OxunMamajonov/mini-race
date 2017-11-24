@@ -23,7 +23,14 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 16;
             // 
             // Screen
             // 
@@ -40,5 +47,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer timer;
     }
 }

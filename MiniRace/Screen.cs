@@ -29,9 +29,10 @@ namespace MiniRace {
             this.main = main;
 
             InitializeComponent();
-            DoubleBuffered = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(main.Screen_FormClosed);
             this.Paint += new System.Windows.Forms.PaintEventHandler(main.Screen_Paint);
+            this.timer.Tick += new System.EventHandler(main.timer_Tick);
+            DoubleBuffered = true;
         }
 
         private void Screen_KeyUp(object sender, KeyEventArgs e) {

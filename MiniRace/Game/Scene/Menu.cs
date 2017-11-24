@@ -24,14 +24,15 @@ namespace MiniRace.Game.Scene {
             g.DrawImage(Bundle.background, 0, 0, main.screen.Width, main.screen.Height);
             g.DrawImage(Bundle.logo, (float)x, (float)y);
 
-            g.DrawString("Press any key to start", Bundle.menuFont,
-                                                   Brushes.Black,
-                                                   main.screen.Width / 2 - 195,
-                                                   main.screen.Height / 2 + 55);
-            g.DrawString("Press any key to start", Bundle.menuFont, 
-                                                   Brushes.White, 
-                                                   main.screen.Width / 2 - 200, 
-                                                   main.screen.Height / 2 + 50);
+            //g.DrawString("Press any key to start", Bundle.menuFont,
+            //                                       Brushes.Black,
+            //                                       main.screen.Width / 2 - 195,
+            //                                       main.screen.Height / 2 + 55);
+            //g.DrawString("Press any key to start", Bundle.menuFont, 
+            //                                       Brushes.White, 
+            //                                       main.screen.Width / 2 - 200, 
+            //                                       main.screen.Height / 2 + 50);
+
             if (main.screen.enter)
                 Scene.currentScene = main.gameScene;
         }

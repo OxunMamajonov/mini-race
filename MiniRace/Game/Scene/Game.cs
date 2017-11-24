@@ -77,14 +77,14 @@ namespace MiniRace.Game.Scene {
                     else if(map[i, j] == (int)tiles.floor)
                         g.DrawImage(Bundle.floor, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
 
-                    if (oil[i, j] == (int)tiles.oil)
-                        g.DrawImage(Bundle.oil[rnd.Next(0,6)], offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+                    //if (oil[i, j] == (int)tiles.oil)
+                        //    g.DrawImage(Bundle.oil[rnd.Next(0,6)], offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
 
-                    if (oiled && oiledd[i, j] == (int)tiles.oilpath)
-                        g.DrawImage(Bundle.oilpath, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+                        //if (oiled && oiledd[i, j] == (int)tiles.oilpath)
+                        //    g.DrawImage(Bundle.oilpath, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
 
-                    //Layer 2
-                    if (carr[i, j] == (int)car.car)
+                        //Layer 2
+                     if (carr[i, j] == (int)car.car)
                         g.DrawImage(Bundle.car, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
 
                 }
@@ -151,10 +151,10 @@ namespace MiniRace.Game.Scene {
             if(score < int.MaxValue)
                 score += 1 + score / 60;
 
-            if (!oiled && oil[x, y] == (int)tiles.oil) {
-                oiled = true;
-                time += 50;
-            }
+            //if (!oiled && oil[x, y] == (int)tiles.oil) {
+            //    oiled = true;
+            //    time += 50;
+            //}
                 
 
             try {
@@ -185,8 +185,8 @@ namespace MiniRace.Game.Scene {
                 if(!(j>wall+3 && j <size-wall-3)) {
                     map[j, 0] = (int)tiles.wall;
 
-                    if (rnd.Next(0, 100) < 3 && wall + 6 < size - wall - 6)
-                        oil[rnd.Next(wall + 6, size - wall - 6), 0] = (int)tiles.oil;
+                    //if (rnd.Next(0, 100) < 3 && wall + 6 < size - wall - 6)
+                    //    oil[rnd.Next(wall + 6, size - wall - 6), 0] = (int)tiles.oil;
 
                 }
 
