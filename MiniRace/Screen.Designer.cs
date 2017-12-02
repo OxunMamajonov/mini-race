@@ -30,15 +30,17 @@
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 16;
+            this.timer.Interval = 1;
             // 
             // Screen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(107)))), ((int)(((byte)(81)))));
-            this.ClientSize = new System.Drawing.Size(849, 514);
+            this.ClientSize = new System.Drawing.Size(1212, 803);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Screen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Screen";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Screen_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Screen_KeyUp);

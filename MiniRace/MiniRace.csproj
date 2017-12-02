@@ -83,7 +83,7 @@
     <Compile Include="Game\Scene\Records.cs" />
     <Compile Include="Game\Scene\Scene.cs" />
     <Compile Include="Game\Scene\Menu.cs" />
-    <Compile Include="Game\Utils\Perlin.cs" />
+    <Compile Include="Game\Utils\Utils.cs" />
     <Compile Include="Resources\Bundle.cs" />
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -140,7 +140,9 @@
       <DependentUpon>Scores.edmx</DependentUpon>
     </Content>
     <Content Include="Resources\background.png" />
+    <Content Include="Resources\background_end.png" />
     <Content Include="Resources\car.png" />
+    <Content Include="Resources\clouds_end.png" />
     <Content Include="Resources\floor.png" />
     <Content Include="Resources\logo.png" />
     <Content Include="Resources\oil.png" />

@@ -11,21 +11,27 @@ namespace MiniRace.Resources {
 
         public static Bitmap logo { get; set; }
         public static Bitmap background { get; set; }
+        public static Bitmap backgroundEnd { get; set; }
+        public static Bitmap cloudsEnd { get; set; }
         public static Font menuFont { get; set; }
 
         public static Bitmap wall { get; set; }
         public static Bitmap floor { get; set; }
         public static Bitmap car { get; set; }
+        public static Bitmap carFlying { get; set; }
         public static Bitmap[] oil { get; set; }
         public static Bitmap oilpath { get; set; }
 
         public static void init() {
             logo = new Bitmap("../../Resources/logo.png");
             background = new Bitmap("../../Resources/background.png");
+            backgroundEnd = new Bitmap("../../Resources/background_end.png");
+            cloudsEnd = new Bitmap("../../Resources/clouds_end.png");
 
             wall = new Bitmap("../../Resources/wall.png");
             floor = new Bitmap("../../Resources/floor.png");
             car = new Bitmap("../../Resources/car.png");
+            carFlying = new Bitmap("../../Resources/car_flying.png");
 
             oil = new Bitmap[6];
             oil[0] = new Bitmap("../../Resources/oil.png");

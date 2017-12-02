@@ -10,7 +10,10 @@ namespace MiniRace {
 
         [STAThread]
         static void Main() {
-            new Main();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(true);
+            Application.Run(new Screen());
+            
         }
 
     }
