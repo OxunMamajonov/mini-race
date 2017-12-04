@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiniRace.Resources;
+using System.Windows.Forms;
 
 namespace MiniRace.Game.Scene {
     public class Game : Scene {
@@ -19,6 +20,9 @@ namespace MiniRace.Game.Scene {
         private int wall;
         private int offset;
         private bool oiled = false;
+        
+        private bool jump = false;
+        private int jumpTime = 0;
 
         enum tiles {
             wall,
@@ -78,21 +82,41 @@ namespace MiniRace.Game.Scene {
                         g.DrawImage(Bundle.floor, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
 
                     if (oil[i, j] == (int)tiles.oil)
-                        g.DrawImage(Bundle.oil[rnd.Next(0,6)], offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+                        g.DrawImage(Bundle.oil[rnd.Next(0, 6)], offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
 
                     if (oiled && oiledd[i, j] == (int)tiles.oilpath)
                         g.DrawImage(Bundle.oilpath, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
 
                     //Layer 2
                     if (carr[i, j] == (int)car.car)
+                        if(!jump)
                         g.DrawImage(Bundle.car, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+                    else
+                        g.DrawImage(Bundle.carFlying, offsetX + i * tileSize, offsetY + j * tileSize, tileSize, tileSize);
+
 
                 }
             }
 
             roll();
 
-            carr[x, y] = 1;
+
+            if (jump) {
+                if (jumpTime < 10) {
+                    jumpTime++;
+                } else {
+                    jumpTime = 0;
+
+                    carr[x, y] = (int)car.air;
+                    y += 3;
+                    carr[x, y] = (int)car.car;
+
+                    if (jump)
+                        jump = false;
+                }
+            }
+
+                carr[x, y] = 1;
 
             if (main.screen.left) {
                 carr[x, y] = (int)car.air;
@@ -102,7 +126,19 @@ namespace MiniRace.Game.Scene {
                 carr[x, y] = (int)car.air;
                 x++;
                 carr[x, y] = (int)car.car;
+            } else if (main.screen.up) {
+                if (!jump) {
+                    carr[x, y] = (int)car.air;
+                    y -= 3;
+                    carr[x, y] = (int)car.car;
+                    jump = true;
+                    jumpTime = 0;
+                } else {
+                    
+                }
+
             }
+            
 
             if(oiled) {
                     int direction = rnd.Next(0,100);
@@ -146,20 +182,21 @@ namespace MiniRace.Game.Scene {
                 main.recordsScene = recordScene;
                 currentScene = main.recordsScene;
             }
-
             
-            if(score < int.MaxValue)
+            if(score < int.MaxValue - (1 + score / 60) )
                 score += 1 + score / 60;
 
             if (!oiled && oil[x, y] == (int)tiles.oil) {
                 oiled = true;
                 time += 50;
             }
-                
 
-            try {
-                g.DrawString($"Score = {score.ToString()}\nOiled = {time}", Bundle.menuFont, Brushes.White, 0, 0);
-            } catch (InvalidOperationException e) { }
+
+            TextRenderer.DrawText(g, $"Score = {score.ToString()}\nOiled = {time}", 
+                                  Bundle.menuFont, 
+                                  new Point(0, 0), 
+                                  Color.White);
+            
 
 
         }

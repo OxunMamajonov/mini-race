@@ -13,26 +13,40 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
+using System.Threading;
 
 namespace MiniRace.Game.Scene
 {
     public class Records : Scene
     {
         public int score { get; set; }
-        ScoresContainer db = new ScoresContainer();
+        private int counter = 0, counter2 = -1200;
+        //ScoresContainer db = new ScoresContainer();
 
         public Records(Main main) : base(main) {
 
         }
 
-        public override void paint(Graphics g)
-        {
-            g.DrawImage(Bundle.background, 0, 0, main.screen.Width, main.screen.Height);
+        public override void paint(Graphics g) {
 
-            drawString(g, "Game over", main.screen.Width / 2, main.screen.Height / 4);
-            drawString(g, "Your name: ", main.screen.Width / 2, main.screen.Height / 4+100); 
-            drawString(g, $"{SystemInformation.ComputerName} / {Environment.UserName}", main.screen.Width / 2, main.screen.Height / 4 + 150);
-            drawString(g, $"Scores: {score}", main.screen.Width / 2, main.screen.Height / 4 + 200);
+            if (counter > -1200)
+                counter -= 18;
+            else
+                counter = 0;
+
+            if (counter2 < 0)
+                counter2 += 12;
+            else
+                counter2 = -1200;
+
+            g.DrawImageUnscaled(Bundle.backgroundEnd, counter, 0, main.screen.Width, main.screen.Height);
+            g.DrawImageUnscaled(Bundle.cloudsEnd, counter2, 0, main.screen.Width, main.screen.Height);
+
+            Utils.Utils.drawString(g, $"Game over\n\nYour name:\n{SystemInformation.ComputerName} / {Environment.UserName}\n\nScores: {score}", 
+                                   Bundle.menuFont, 
+                                   Color.FromArgb(84, 153, 84), 
+                                   main.screen.Width / 2-100, 
+                                   main.screen.Height / 2-120);
 
             //var name = from ps in db.PlayerSet
             //           orderby ps.Description.Ammount
@@ -51,39 +65,30 @@ namespace MiniRace.Game.Scene
             //}
 
 
-            //if (main.screen.enter)
-            //{
+            if (main.screen.enter) {
 
-            //    string timeStr = DateTime.Now.ToLongTimeString();
-            //    string scoreStr = score.ToString();
+                string timeStr = DateTime.Now.ToLongTimeString();
+                string scoreStr = score.ToString();
 
-            //    Score scoreDB = new Score {
-            //        Time = timeStr,
-            //        Ammount = scoreStr
-            //    };
+                Score scoreDB = new Score {
+                    Time = timeStr,
+                    Ammount = scoreStr
+                };
 
-            //    db.PlayerSet.Add(
-            //    new Player {
-            //        Name = $"{SystemInformation.ComputerName} / {Environment.UserName}",
-            //        Description = scoreDB
-            //    });
+                //db.PlayerSet.Add(
+                //new Player {
+                //    Name = $"{SystemInformation.ComputerName} / {Environment.UserName}",
+                //    Description = scoreDB
+                //});
 
-            //    db.SaveChanges();
+                //db.SaveChanges();
 
-            //    main.menuScene = new Menu(main);
-            //    main.gameScene = new Game(main);
-            //    Scene.currentScene = main.menuScene;
-            //}
+                main.menuScene = new Menu(main);
+                main.gameScene = new Game(main);
+                Thread.Sleep(60);
+                Scene.currentScene = main.menuScene;
+            }
 
-        }
-        private void drawString(Graphics g, string str, int x, int y) {
-
-            StringFormat stringFormat = new StringFormat();
-            stringFormat.Alignment = StringAlignment.Center;
-            stringFormat.LineAlignment = StringAlignment.Center;
-
-            g.DrawString(str, Bundle.menuFont, Brushes.Black, x+5, y+5, stringFormat);
-            g.DrawString(str, Bundle.menuFont, Brushes.White, x, y, stringFormat);
         }
     }
 }

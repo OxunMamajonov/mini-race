@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>minirace.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -83,7 +86,7 @@
     <Compile Include="Game\Scene\Records.cs" />
     <Compile Include="Game\Scene\Scene.cs" />
     <Compile Include="Game\Scene\Menu.cs" />
-    <Compile Include="Game\Utils\Perlin.cs" />
+    <Compile Include="Game\Utils\Utils.cs" />
     <Compile Include="Resources\Bundle.cs" />
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,8 +142,11 @@
       <LastGenOutput>Scores.cs</LastGenOutput>
       <DependentUpon>Scores.edmx</DependentUpon>
     </Content>
+    <Content Include="minirace.ico" />
     <Content Include="Resources\background.png" />
+    <Content Include="Resources\background_end.png" />
     <Content Include="Resources\car.png" />
+    <Content Include="Resources\clouds_end.png" />
     <Content Include="Resources\floor.png" />
     <Content Include="Resources\logo.png" />
     <Content Include="Resources\oil.png" />
