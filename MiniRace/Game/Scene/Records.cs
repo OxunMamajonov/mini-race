@@ -49,9 +49,8 @@ namespace MiniRace.Game.Scene
                                    main.screen.Width / 2 - 100,
                                    main.screen.Height / 2 - 120);
 
-
-            ScoresContext context = new ScoresContext();
-            SqlConnection connection = new SqlConnection(@"Data Source=SEDYH;Initial Catalog=ScoresDBB;Integrated Security=True");
+            
+            ScoresDBBDataSet context = new ScoresDBBDataSet();
             
             context.players.Add(new Player { Name = Environment.UserName });
             context.SaveChanges();

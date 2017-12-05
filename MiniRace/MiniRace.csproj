@@ -96,7 +96,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Scores.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Game\DB\ScoresContext.cs" />
     <Compile Include="Game\Main.cs" />
     <Compile Include="Game\Scene\Game.cs" />
     <Compile Include="Game\Scene\Records.cs" />
