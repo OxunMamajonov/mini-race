@@ -4,109 +4,55 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Scores.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="ScoresStoreContainer">
-    <EntitySet Name="PlayerSet" EntityType="Scores.Store.PlayerSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ScoreSet" EntityType="Scores.Store.ScoreSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="PlayerDescription" Association="Scores.Store.PlayerDescription">
-      <End Role="Player" EntitySet="PlayerSet" />
-      <End Role="Description" EntitySet="ScoreSet" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="PlayerSet">
-    <Key>
-      <PropertyRef Name="PlayerId" />
-    </Key>
-    <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Description_PlayerId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ScoreSet">
-    <Key>
-      <PropertyRef Name="PlayerId" />
-    </Key>
-    <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Ammount" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <Association Name="PlayerDescription">
-    <End Role="Player" Type="Scores.Store.PlayerSet" Multiplicity="*" />
-    <End Role="Description" Type="Scores.Store.ScoreSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Description">
-        <PropertyRef Name="PlayerId" />
-      </Principal>
-      <Dependent Role="Player">
-        <PropertyRef Name="Description_PlayerId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Scores.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="ScoresTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Scores" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="ScoresContainer" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ScoresContainer1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PlayerSet" EntityType="Scores.Player" />
           <EntitySet Name="ScoreSet" EntityType="Scores.Score" />
-          <AssociationSet Name="PlayerDescription" Association="Scores.PlayerDescription">
+          <AssociationSet Name="PlayerScore" Association="Scores.PlayerScore">
             <End Role="Player" EntitySet="PlayerSet" />
-            <End Role="Description" EntitySet="ScoreSet" />
+            <End Role="Score" EntitySet="ScoreSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Player">
           <Key>
-            <PropertyRef Name="PlayerId" />
+            <PropertyRef Name="PlayerID" />
           </Key>
-          <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Description" Relationship="Scores.PlayerDescription" FromRole="Player" ToRole="Description" />
+          <Property Name="PlayerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="ScoreID" Type="String" Nullable="false" />
+          <NavigationProperty Name="Score" Relationship="Scores.PlayerScore" FromRole="Player" ToRole="Score" />
         </EntityType>
         <EntityType Name="Score">
           <Key>
-            <PropertyRef Name="PlayerId" />
+            <PropertyRef Name="ScoreID" />
           </Key>
-          <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="ScoreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Ammount" Type="String" Nullable="false" />
-          <NavigationProperty Name="Player" Relationship="Scores.PlayerDescription" FromRole="Description" ToRole="Player" />
           <Property Name="Time" Type="String" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="Scores.PlayerScore" FromRole="Score" ToRole="Player" />
         </EntityType>
-        <Association Name="PlayerDescription">
+        <Association Name="PlayerScore">
           <End Type="Scores.Player" Role="Player" Multiplicity="1" />
-          <End Type="Scores.Score" Role="Description" Multiplicity="1" />
+          <End Type="Scores.Score" Role="Score" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ScoresStoreContainer" CdmEntityContainer="ScoresContainer">
-    <EntitySetMapping Name="PlayerSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Scores.Player)">
-        <MappingFragment StoreEntitySet="PlayerSet">
-          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ScoreSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Scores.Score)">
-        <MappingFragment StoreEntitySet="ScoreSet">
-          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
-          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
-          <ScalarProperty Name="Time" ColumnName="Time" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="PlayerDescription" TypeName="Scores.PlayerDescription" StoreEntitySet="PlayerSet">
-      <EndProperty Name="Description">
-        <ScalarProperty Name="PlayerId" ColumnName="Description_PlayerId" />
-      </EndProperty>
-      <EndProperty Name="Player">
-        <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
-      </EndProperty>
-    </AssociationSetMapping>
-  </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Scores" />
+        <Alias Key="Target" Value="Scores.Store" />
+        <EntityContainerMapping CdmEntityContainer="ScoresContainer1" StorageEntityContainer="ScoresTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -120,7 +66,6 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

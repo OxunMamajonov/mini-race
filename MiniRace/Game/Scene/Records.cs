@@ -1,4 +1,4 @@
-﻿using MiniRace.Game.DB;
+﻿
 using MiniRace.Resources;
 using System;
 using System.Collections.Generic;
@@ -65,15 +65,15 @@ namespace MiniRace.Game.Scene
             //}
 
 
-            if (main.screen.enter) {
+            if (main.screen.enterOnce) {
 
-                string timeStr = DateTime.Now.ToLongTimeString();
-                string scoreStr = score.ToString();
+                //string timeStr = DateTime.Now.ToLongTimeString();
+                //string scoreStr = score.ToString();
 
-                Score scoreDB = new Score {
-                    Time = timeStr,
-                    Ammount = scoreStr
-                };
+                //Score scoreDB = new Score {
+                //    Time = timeStr,
+                //    Ammount = scoreStr
+                //};
 
                 //db.PlayerSet.Add(
                 //new Player {
@@ -82,8 +82,7 @@ namespace MiniRace.Game.Scene
                 //});
 
                 //db.SaveChanges();
-
-                main.menuScene = new Menu(main);
+                
                 main.gameScene = new Game(main);
                 Thread.Sleep(60);
                 Scene.currentScene = main.menuScene;

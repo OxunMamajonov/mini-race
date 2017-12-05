@@ -31,12 +31,12 @@ namespace MiniRace.Game.Scene {
             g.DrawImageUnscaled(Bundle.background, counter, 0, main.screen.Width, main.screen.Height);
             g.DrawImage(Bundle.logo, (float)x, (float)y);
 
-            Utils.Utils.drawString(g, "Press any key to start", 
+            Utils.Utils.drawString(g, "Press enter to start", 
                                    Bundle.menuFont,
-                                   Color.White,
+                                   Color.FromArgb(84, 153, 84),
                                    main.screen.Width / 2-180, main.screen.Height / 2);
 
-            if (main.screen.enter)
+            if (main.screen.enterOnce)
                 Scene.currentScene = main.gameScene;
         }
 

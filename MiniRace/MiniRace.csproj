@@ -60,22 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\DB\Player.cs">
-      <DependentUpon>Scores.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Game\DB\Score.cs">
-      <DependentUpon>Scores.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Game\DB\Scores.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Scores.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Game\DB\Scores.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Scores.tt</DependentUpon>
-    </Compile>
     <Compile Include="Game\DB\Scores.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -131,17 +115,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Game\DB\Scores.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Scores.Context.cs</LastGenOutput>
-      <DependentUpon>Scores.edmx</DependentUpon>
-    </Content>
-    <Content Include="Game\DB\Scores.edmx.sql" />
-    <Content Include="Game\DB\Scores.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Scores.cs</LastGenOutput>
-      <DependentUpon>Scores.edmx</DependentUpon>
-    </Content>
     <Content Include="minirace.ico" />
     <Content Include="Resources\background.png" />
     <Content Include="Resources\background_end.png" />
@@ -161,6 +134,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
