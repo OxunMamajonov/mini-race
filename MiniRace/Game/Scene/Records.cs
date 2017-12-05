@@ -22,7 +22,6 @@ namespace MiniRace.Game.Scene
     {
         public int score { get; set; }
         private int counter = 0, counter2 = -1200;
-        //ScoresContainer db = new ScoresContainer();
 
         public Records(Main main) : base(main) {
 
@@ -49,10 +48,9 @@ namespace MiniRace.Game.Scene
                                    main.screen.Width / 2 - 100,
                                    main.screen.Height / 2 - 120);
 
-            
-            ScoresDBBDataSet context = new ScoresDBBDataSet();
-            
-            context.players.Add(new Player { Name = Environment.UserName });
+
+            ModelContainer context = new ModelContainer();
+            context.PlayerSet.Add(new Player { Name = "3434" });
             context.SaveChanges();
 
             //Utils.Utils.drawString(g, "Your records:",
