@@ -37,6 +37,7 @@ namespace MiniRace.Game {
         public void timer_Tick(object sender, EventArgs e) {
 
             screen.Invalidate();
+            screen.tick();
 
             if (ticks < 360)
                 ticks++;

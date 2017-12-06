@@ -13,10 +13,10 @@ namespace MiniRace.Game.DB
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ScoresContainer : DbContext
+    public partial class ModelContainer : DbContext
     {
-        public ScoresContainer()
-            : base("name=ScoresContainer")
+        public ModelContainer()
+            : base("name=ModelContainer")
         {
         }
     

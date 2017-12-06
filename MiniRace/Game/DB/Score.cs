@@ -14,7 +14,7 @@ namespace MiniRace.Game.DB
     
     public partial class Score
     {
-        public int PlayerId { get; set; }
+        public int ScoreId { get; set; }
         public string Ammount { get; set; }
         public string Time { get; set; }
     

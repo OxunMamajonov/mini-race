@@ -1,4 +1,4 @@
-﻿using MiniRace.Game.DB;
+﻿
 using MiniRace.Resources;
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ using System.Data.SqlClient;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core.Objects;
 using System.Threading;
+using MiniRace.Game.DB;
 
 namespace MiniRace.Game.Scene
 {
@@ -21,7 +22,6 @@ namespace MiniRace.Game.Scene
     {
         public int score { get; set; }
         private int counter = 0, counter2 = -1200;
-        //ScoresContainer db = new ScoresContainer();
 
         public Records(Main main) : base(main) {
 
@@ -42,48 +42,64 @@ namespace MiniRace.Game.Scene
             g.DrawImageUnscaled(Bundle.backgroundEnd, counter, 0, main.screen.Width, main.screen.Height);
             g.DrawImageUnscaled(Bundle.cloudsEnd, counter2, 0, main.screen.Width, main.screen.Height);
 
-            Utils.Utils.drawString(g, $"Game over\n\nYour name:\n{SystemInformation.ComputerName} / {Environment.UserName}\n\nScores: {score}", 
-                                   Bundle.menuFont, 
-                                   Color.FromArgb(84, 153, 84), 
-                                   main.screen.Width / 2-100, 
-                                   main.screen.Height / 2-120);
+            Utils.Utils.drawString(g, $"Game over\n\nYour name:\n{Environment.UserName}\n\nScores: {score}",
+                                   Bundle.menuFont,
+                                   Color.FromArgb(84, 153, 84),
+                                   main.screen.Width / 2 - 100,
+                                   main.screen.Height / 2 - 120);
 
-            //var name = from ps in db.PlayerSet
-            //           orderby ps.Description.Ammount
-            //           select ps.Description.Ammount;
 
-            //int a = 250;
-            //int count = 0;
-            //foreach (string str in name) {
-            //    drawString(g, str, main.screen.Width / 2, main.screen.Height / 4 + a);
-            //    a += 50;
+            ModelContainer context = new ModelContainer();
+            context.PlayerSet.Add(new Player { Name = "3434" });
+            context.SaveChanges();
 
-            //    if (count < 4)
-            //        count++;
-            //    else
-            //        break;
+            //Utils.Utils.drawString(g, "Your records:",
+            //                       Bundle.menuFont,
+            //                       Color.FromArgb(84, 153, 84), 0, main.screen.Height / 3);
+
+            //var player = from pl in context.players
+            //             join sc in context.scores
+            //             on pl.ScoreID equals sc.ScoreID
+            //             where pl.Name == Environment.UserName
+            //             select pl.Name +" "+ sc.Ammount +" "+sc.Time;
+
+            //int outer = 20;
+            //foreach(string str in player) {
+            //    Utils.Utils.drawString(g, str,
+            //                           Bundle.menuFont,
+            //                           Color.FromArgb(84, 153, 84), 0, main.screen.Height / 3 + outer);
+            //    outer += 20;
             //}
 
 
-            if (main.screen.enter) {
+            //Utils.Utils.drawString(g, "Top records:",
+            //                       Bundle.menuFont,
+            //                       Color.FromArgb(84, 153, 84), main.screen.Width - 150, main.screen.Height / 3);
 
-                string timeStr = DateTime.Now.ToLongTimeString();
-                string scoreStr = score.ToString();
 
-                Score scoreDB = new Score {
-                    Time = timeStr,
-                    Ammount = scoreStr
-                };
+            if (main.screen.enterOnce) {
+                //Player exist = null;
+                //foreach (Player p in context.players) {
+                //    if (p.Name == Environment.UserName)
+                //        exist = p;
+                //}
 
-                //db.PlayerSet.Add(
-                //new Player {
-                //    Name = $"{SystemInformation.ComputerName} / {Environment.UserName}",
-                //    Description = scoreDB
-                //});
+                //if (exist != null) {
+                //    exist.Score.Add(new Score { Ammount = score.ToString(), Time = DateTime.Now.ToLongTimeString() });
+                //} else {
 
-                //db.SaveChanges();
+                //    Player p = new Player { Name = Environment.UserName };
 
-                main.menuScene = new Menu(main);
+                //    p.Score.Add(new Score {
+                //        Ammount = score.ToString(),
+                //        Time = DateTime.Now.ToLongTimeString()
+                //    });
+
+                //    context.players.Add(p);
+                //}
+
+                //context.SaveChanges();
+
                 main.gameScene = new Game(main);
                 Thread.Sleep(60);
                 Scene.currentScene = main.menuScene;

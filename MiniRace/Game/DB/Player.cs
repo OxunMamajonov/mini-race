@@ -14,9 +14,16 @@ namespace MiniRace.Game.DB
     
     public partial class Player
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Player()
+        {
+            this.Score = new HashSet<Score>();
+        }
+    
         public int PlayerId { get; set; }
         public string Name { get; set; }
     
-        public virtual Score Description { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Score> Score { get; set; }
     }
 }
