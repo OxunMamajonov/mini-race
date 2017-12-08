@@ -75,16 +75,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BDDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BDDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DDDDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DDDDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Game\DB\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -100,11 +90,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Game\DB\MrModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MrModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game\DB\MrModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MrModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game\DB\MrModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MrModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Game\DB\Player.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Game\DB\PlayerSet.cs">
+      <DependentUpon>MrModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Game\DB\Score.cs">
       <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game\DB\ScoreSet.cs">
+      <DependentUpon>MrModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game\DB\sysdiagrams.cs">
+      <DependentUpon>MrModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Game\Main.cs" />
     <Compile Include="Game\Scene\Game.cs" />
@@ -137,30 +151,18 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="BDDataSet.xsc">
-      <DependentUpon>BDDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="BDDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BDDataSet.Designer.cs</LastGenOutput>
+    <None Include="App.Config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="BDDataSet.xss">
-      <DependentUpon>BDDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="DDDDataSet.xsc">
-      <DependentUpon>DDDDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="DDDDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DDDDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DDDDataSet.xss">
-      <DependentUpon>DDDDataSet.xsd</DependentUpon>
     </None>
     <None Include="Game\DB\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Game\DB\MrModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MrModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Game\DB\MrModel.edmx.diagram">
+      <DependentUpon>MrModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -175,18 +177,6 @@
     <None Include="Resources\Upheaval.otf" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Game\DB\DDD.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Game\DB\DDD_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>DDD.mdf</DependentUpon>
-    </Content>
     <Content Include="Game\DB\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
@@ -197,6 +187,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.cs</LastGenOutput>
       <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="Game\DB\MrModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MrModel.edmx</DependentUpon>
+      <LastGenOutput>MrModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Game\DB\MrModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MrModel.edmx</DependentUpon>
+      <LastGenOutput>MrModel.cs</LastGenOutput>
     </Content>
     <Content Include="minirace.ico" />
     <Content Include="Resources\background.png" />

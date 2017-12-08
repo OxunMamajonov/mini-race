@@ -112,5 +112,9 @@ namespace MiniRace {
             }
 
         }
+
+        private void Screen_FormClosed(object sender, FormClosedEventArgs e) {
+            Application.Exit();
+        }
     }
 }
