@@ -44,6 +44,7 @@
             this.Name = "Screen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Screen";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Screen_FormClosed);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Screen_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Screen_KeyUp);
             this.ResumeLayout(false);
